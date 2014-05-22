@@ -5,4 +5,16 @@ See the [component page](http://polymerlabs.github.io/untitled-element) for more
 
 ## Getting Started
 
-We've put together a [guide to untitled-element](http://www.polymer-project.org/docs/start/reusableelements.html) to help get you rolling.
+<b> \<x-life\> </b> is a web component that renders a Conway's Game of Life instance.
+
+1. Import polymer
+
+```html
+ <script src="bower_components/platform/platform.js"> </script>
+```
+
+2. Import x-life
+```html
+```
+
+3. Enjoy!
