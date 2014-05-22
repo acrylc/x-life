@@ -1,5 +1,4 @@
-<link rel="import" href="../polymer/polymer.html">
-<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<link rel="import" href="../../polymer/polymer.html">
 
 <!--
 Element providing solution to no problem in particular.
@@ -18,7 +17,7 @@ Element providing solution to no problem in particular.
   <template>
 
 	<link href="x-life.css" rel="stylesheet" />
-	<canvas id='gol-container'></canvas>
+	<canvas id='gol-container' height='500' width = '500'></canvas>
 
   </template>
 
@@ -28,8 +27,8 @@ Element providing solution to no problem in particular.
 
 	  notitle: '',
 
-		ready: function() {
-			var width = 1000,
+	ready: function() {
+		var width = 1000,
 			height = 600,
 			cellSize = 3,
 			cellsW = Math.floor(width/cellSize),
@@ -38,89 +37,86 @@ Element providing solution to no problem in particular.
 			cells2 = [],
 			initNumCells = 10000;
 
+		// initalize empty matrix
+		var initMat = function(mat,w,h){
+			for (var i=0;i<w;i++){
+				mat[i]=[];
+				for (var j=0;j<h;j++){
+					mat[i][j]=0;
+				}
+			}
+		};
 
-			// initalize empty matrix
-			var initMat = function(mat,w,h){
-				for (var i=0;i<w;i++){
-					mat[i]=[];
-						for (var j=0;j<h;j++){
-						mat[i][j]=0;
+		initMat(cells,cellsW,cellsH);
+		initMat(cells2,cellsW,cellsH);
+
+		canvas = this.$["gol-container"];
+		// c.width = width;
+		// c.height = height;
+		var ctx=canvas.getContext("2d");
+
+		// Set random initali configuration
+		for (var i=0;i<initNumCells;i++){
+			var x = Math.floor( Math.random()*cellsW );
+			var y =  Math.floor( Math.random()*cellsH );
+			cells[ x ][ y ] = 1;
+			ctx.fillRect(x*cellSize,y*cellSize,cellSize,cellSize);
+		}
+
+		aliveMapping = [0,0,1,1,0,0,0,0,0];
+		deadMapping = [0,0,0,1,0,0,0,0,0];
+		var colorMapping = ['#FFFFFF','rgba(30,30,34,255)'];
+
+		myMod = function(m,n) {
+			return ((m%n)+n)%n;
+		};
+
+		sumNeighbors = function(i,j){
+			var sum = 0;
+			for (var k=-1;k<=1;k++){
+				for (var m=-1;m<=1;m++){
+					if (m!==0 || k!==0){
+						sum+= cells[ myMod( (i+k), cellsW) ][ myMod( (j+m), cellsH ) ];
 					}
 				}
-			};
-			
-			initMat(cells,cellsW,cellsH);
-			initMat(cells2,cellsW,cellsH);
-
-			c = this.$["gol-container"];
-			c.width = width;
-			c.height = height;
-			var ctx=c.getContext("2d");
-
-			// Set random initali configuration
-			for (var i=0;i<initNumCells;i++){
-				var x = Math.floor( Math.random()*cellsW );
-				var y =  Math.floor( Math.random()*cellsH );
-				cells[ x ][ y ] = 1;
-				ctx.fillRect(x*cellSize,y*cellSize,cellSize,cellSize);
 			}
+			return sum;
+		};
 
-				aliveMapping = [0,0,1,1,0,0,0,0,0];
-				deadMapping = [0,0,0,1,0,0,0,0,0];
-				var colorMapping = ['#FaFaFa','rgba(30,30,34,255)'];
-
-				myMod = function(m,n) {
-				  return ((m%n)+n)%n;
-				};
-
-				sumNeighbors = function(i,j){
-				  var sum = 0;
-				  for (var k=-1;k<=1;k++){
-					for (var m=-1;m<=1;m++){
-					  if (m!==0 || k!==0){
-						sum+= cells[ myMod( (i+k), cellsW) ][ myMod( (j+m), cellsH ) ];
-					  }
-					}
-				  }
-				  //console.log(sum);
-				  return sum;
-				};
-
-				var lifeIt = function(){
-				  for (var i=0;i<cellsW;i++){
-					for (var j=0;j<cellsH;j++){
-					  if (cells[i][j]==1){
+		var lifeIt = function(){
+        	ctx.clearRect(0, 0, canvas.width, canvas.height);
+			for (var i=0;i<cellsW;i++){
+				for (var j=0;j<cellsH;j++){
+					if (cells[i][j]==1){
 						cells2[i][j] = aliveMapping[ sumNeighbors(i,j) ];
-					  } else {
+						ctx.fillStyle=( "colorMapping[cells2[i][j]]");
+						ctx.fillRect(i*cellSize,j*cellSize,cellSize,cellSize);
+					} else {
 						cells2[i][j] = deadMapping[ sumNeighbors(i,j) ];
-					  }
 					}
-				  }
-				  for (var i=0;i<cellsW;i++){
-					for (var j=0;j<cellsH;j++){
-					  cells[i][j]=cells2[i][j];
-					  ctx.fillStyle=( colorMapping[cells[i][j]]);
-					  ctx.fillRect(i*cellSize,j*cellSize,cellSize,cellSize);
-					}
-				  }
-				};
+				}
+			}
+			for (var i=0;i<cellsW;i++){
+				for (var j=0;j<cellsH;j++){
+					cells[i][j]=cells2[i][j];
+				}
+			}
+		};
 
-				setInterval(function(){
-				  /// call your function here
-				  lifeIt();
-				}, 150);
+		setInterval(function(){
+			lifeIt();
+		}, 100);
+	},
 
-			},
-
-			  /**
-			   * The `task` method does no work at this time.
-			   * 
-			   * @method task
-			   * @return {Object} Returns undefined.
-			   * @param {String} dummy Serves no purpose today.
-			   */
-			  task: function(dummy) {
-			  }
+	/**
+	* The `task` method does no work at this time.
+	* 
+	* @method task
+	* @return {Object} Returns undefined.
+	* @param {String} dummy Serves no purpose today.
+	*/
+	task: function(dummy) {
+	}
 
 	});
 
