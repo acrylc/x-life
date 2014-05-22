@@ -1,11 +1,11 @@
-var width = 1000;
+var width = 800;
 var height = 800;
 
 // initialize size of canvas
 el = $("#gol-container");
 el.css({"width":width, "height":height});
 
-var cellSize = 3;
+var cellSize = 2;
 var cellsW = Math.floor(width/cellSize);
 var cellsH = Math.floor(height/cellSize);
 var cells=[];

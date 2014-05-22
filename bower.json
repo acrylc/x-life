@@ -1,7 +1,19 @@
 {
-  "name": "untitled-element",
-  "private": true,
-  "dependencies": {
-    "polymer": "Polymer/polymer#master"
-  }
+	"name": "x-life",
+	"version" : "0.0.1",
+	"description" : "X-life is a web component for Conway's Game of Life.",
+	"authors" : "Maya Kreidieh <mayakreidieh@gmail.com>",
+	"main" : "dist/x-life.html",
+	"ignore": [
+		".bowerrc",
+		".gitignore",
+		".jshintignore",
+		".jshintrc",
+		"bower.json",
+		"README.md",
+		"**/.*"
+	],
+	"dependencies": {
+		"polymer": "Polymer/polymer#master"
+	}
 }
