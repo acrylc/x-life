@@ -12,12 +12,12 @@ Element providing solution to no problem in particular.
 @status alpha
 @url github.io
 -->
-<polymer-element name="x-life" attributes="notitle">
+<polymer-element name="x-life" attributes="notitle height width cellSize backgroundColor cellColor" height=500 width=500 cellSize=2 backgroundColor = "white" cellColor = 'black'>
 
   <template>
 
 	<link href="x-life.css" rel="stylesheet" />
-	<canvas id='gol-container' height='500' width = '500'></canvas>
+	<canvas id='gol-container' height={{height}} width = {{width}}></canvas>
 
   </template>
 
@@ -28,14 +28,16 @@ Element providing solution to no problem in particular.
 	  notitle: '',
 
 	ready: function() {
-		var width = 1000,
-			height = 600,
-			cellSize = 3,
-			cellsW = Math.floor(width/cellSize),
-			cellsH = Math.floor(height/cellSize),
+		// var this.cellSize = this.this.cellSize;
+		var cellsW = Math.floor(this.width/this.cellSize),
+			cellsH = Math.floor(this.height/this.cellSize),
 			cells=[],
 			cells2 = [],
-			initNumCells = 10000;
+			initNumCells = 4000,
+			_this = this,
+			aliveMapping = [0,0,1,1,0,0,0,0,0],
+			deadMapping = [0,0,0,1,0,0,0,0,0],
+			colorMapping = [this.backgroundColor,this.cellColor];
 
 		// initalize empty matrix
 		var initMat = function(mat,w,h){
@@ -49,27 +51,21 @@ Element providing solution to no problem in particular.
 
 		initMat(cells,cellsW,cellsH);
 		initMat(cells2,cellsW,cellsH);
-
 		canvas = this.$["gol-container"];
-		// c.width = width;
-		// c.height = height;
 		var ctx=canvas.getContext("2d");
+        ctx.fillStyle = _this.backgroundColor;
+        ctx.fillRect(0,0,_this.width,_this.height);    	           
 
 		// Set random initali configuration
+		ctx.fillStyle=( _this.cellColor );
 		for (var i=0;i<initNumCells;i++){
 			var x = Math.floor( Math.random()*cellsW );
 			var y =  Math.floor( Math.random()*cellsH );
 			cells[ x ][ y ] = 1;
-			ctx.fillRect(x*cellSize,y*cellSize,cellSize,cellSize);
+			ctx.fillRect(x*_this.cellSize,y*_this.cellSize,_this.cellSize,_this.cellSize);
 		}
 
-		aliveMapping = [0,0,1,1,0,0,0,0,0];
-		deadMapping = [0,0,0,1,0,0,0,0,0];
-		var colorMapping = ['#FFFFFF','rgba(30,30,34,255)'];
-
-		myMod = function(m,n) {
-			return ((m%n)+n)%n;
-		};
+		var myMod = function(m,n) { return ((m%n)+n)%n; };
 
 		sumNeighbors = function(i,j){
 			var sum = 0;
@@ -84,13 +80,15 @@ Element providing solution to no problem in particular.
 		};
 
 		var lifeIt = function(){
-        	ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = _this.backgroundColor;
+            ctx.fillRect(0,0,_this.width,_this.height); 
+			ctx.fillStyle=( _this.cellColor );   	           
 			for (var i=0;i<cellsW;i++){
 				for (var j=0;j<cellsH;j++){
 					if (cells[i][j]==1){
 						cells2[i][j] = aliveMapping[ sumNeighbors(i,j) ];
-						ctx.fillStyle=( "colorMapping[cells2[i][j]]");
-						ctx.fillRect(i*cellSize,j*cellSize,cellSize,cellSize);
+						ctx.fillRect(i*_this.cellSize,j*_this.cellSize,_this.cellSize,_this.cellSize);
 					} else {
 						cells2[i][j] = deadMapping[ sumNeighbors(i,j) ];
 					}
@@ -108,13 +106,6 @@ Element providing solution to no problem in particular.
 		}, 100);
 	},
 
-	/**
-	* The `task` method does no work at this time.
-	* 
-	* @method task
-	* @return {Object} Returns undefined.
-	* @param {String} dummy Serves no purpose today.
-	*/
 	task: function(dummy) {
 	}
 
