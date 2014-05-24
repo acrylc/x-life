@@ -1,0 +1,27 @@
+{
+  "name": "life",
+  "version": "0.0.0",
+  "description": "x-life\r ================",
+  "main": "Gruntfile.js",
+  "dependencies": {
+    "grunt-contrib-connect": "^0.7.1",
+    "grunt-text-replace": "^0.3.11",
+    "grunt-gh-pages": "^0.9.1"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/acrylc/x-life.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/acrylc/x-life/issues"
+  },
+  "homepage": "https://github.com/acrylc/x-life"
+}
