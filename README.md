@@ -23,7 +23,7 @@ bower install x-life --save
 
 2. Import x-life:
 	```html
-	<script src="bower_components/x-life/dist/x-life.html"> </script>
+	<link rel='import' href="bower_components/x-life/dist/x-life.html"> 
 	```
 
 3. Enjoy!
