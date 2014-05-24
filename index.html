@@ -26,7 +26,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   		#title{
   			position:absolute;
   			width:400px;
-  			height:150px;
+  			height:140px;
   			background-color: rgba(254,254,254,0);
   			text-align:center;
   			left: 50%;
@@ -34,7 +34,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   			margin-left:-250px;
   			margin-top:-155px;
   			border:7px solid rgb(240,240,240);
-  			padding: 30px 50px 30px 50px;
+  			padding: 30px 50px 50px 50px;
   		}
   		#title h1{
   			font-size: 70px;
@@ -44,6 +44,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   			font-weight:900;
   			color:white;
   		}
+  		h2{
+  			font-family: "Arvo";
+  			font-weight:300;
+  		}
+  		h3{
+  			font-family: "Roboto";
+  		}
   		#title h2{
   			font-size: 1em;
   			font-family: "Arvo";
@@ -51,6 +58,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   			line-height:0px;
   			margin-top:10px;
   			color:white;
+  		}
+  		.hover{
+  			position:absolute;
+  			width:50%;
+  			margin-left: 25%;
+  		}
+  		#usage{
+  			top:75px;
+  		}
+  		pre{
+  			background-color: rgb(253,253,253);
+  			padding:15px;
+  			border-radius:2px;
   		}
 
   </style>
@@ -60,13 +80,40 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 
 	<section>
-		<x-life width=1500 height=800 backgroundColor='#c0392b' cellColor = '#e74c3c' cellSize=3></x-life>
+		<x-life width=1500 height=800 backgroundColor='#c0392b' cellColor = '#e74c3c' cellSize=2.5></x-life>
+		<!-- <x-life width=1500 height=800 backgroundColor='rgb(250,250,250)' cellColor = 'rgb(240,240,240)' cellSize=2.5></x-life> -->
 		<div id='title'> 
 			<h1> &lt x-life &gt </h1> 
 			<h2> A web component for Conway's Game of Life </h2>
+			<h3>
+			<iframe src="http://ghbtns.com/github-btn.html?user=acrylc&repo=x-life&type=fork"
+  allowtransparency="true" frameborder="0" scrolling="0" width="62" height="20" ></iframe>
+  			<iframe src="http://ghbtns.com/github-btn.html?user=acrylc&repo=x-life&type=watch"
+  allowtransparency="true" frameborder="0" scrolling="0" width="62" height="20" ></iframe>
+  </h3>
+
 		</div>
 	</section>
 
+	<section>
+		<x-life width=1500 height=800 backgroundColor='rgb(250,250,250)' cellColor = 'rgb(240,240,240)' cellSize=2.5></x-life>
+
+		<div class='hover' id='usage'>
+			<h2> Install </h2>
+			<h3> Install the web component using Bower </h3>
+			<pre>$ bower install x-life</pre>		
+			<br>
+			<h2> Usage </h2>
+			<h3> 1. Import polymer </h3>
+			<pre> &ltscript src="bower_components/platform/platform.js"&gt &lt/script&gt </pre>		
+			<h3> 2. Import x-life </h3>
+			<pre> &ltlink rel='import' href="bower_components/x-life/dist/x-life.html"&gt </pre>
+			<h3> 3. Enjoy! </h3>		
+			<pre> &ltx-life&gt &lt/x-life&gt  </pre>
+
+
+		</div>
+	</section>
 
 </body>
 </html>
