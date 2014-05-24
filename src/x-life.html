@@ -1,0 +1,106 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+
+<polymer-element name="x-life" attributes="notitle height width cellSize backgroundColor cellColor" height=500 width=500 cellSize=2 backgroundColor = "white" cellColor = 'black'>
+
+  <template>
+
+	<link href="x-life.css" rel="stylesheet" />
+	<canvas id='gol-container' height={{height}} width = {{width}}></canvas>
+
+  </template>
+
+  <script>
+
+	Polymer({
+
+	  notitle: '',
+
+	ready: function() {
+		// var this.cellSize = this.this.cellSize;
+		var cellsW = Math.floor(this.width/this.cellSize),
+			cellsH = Math.floor(this.height/this.cellSize),
+			cells=[],
+			cells2 = [],
+			initNumCells = 4000,
+			_this = this,
+			aliveMapping = [0,0,1,1,0,0,0,0,0],
+			deadMapping = [0,0,0,1,0,0,0,0,0],
+			colorMapping = [this.backgroundColor,this.cellColor];
+
+		// initalize empty matrix
+		var initMat = function(mat,w,h){
+			for (var i=0;i<w;i++){
+				mat[i]=[];
+				for (var j=0;j<h;j++){
+					mat[i][j]=0;
+				}
+			}
+		};
+
+		initMat(cells,cellsW,cellsH);
+		initMat(cells2,cellsW,cellsH);
+		canvas = this.$["gol-container"];
+		var ctx=canvas.getContext("2d");
+        ctx.fillStyle = _this.backgroundColor;
+        ctx.fillRect(0,0,_this.width,_this.height);    	           
+
+		// Set random initali configuration
+		ctx.fillStyle=( _this.cellColor );
+		console.log(cellsW);
+		for (var i=0;i<initNumCells;i++){
+			var x = Math.floor( Math.random()*cellsW );
+			var y =  Math.floor( Math.random()*cellsH );
+			cells[ x ][ y ] = 1;
+			ctx.fillRect(x*_this.cellSize,y*_this.cellSize,_this.cellSize,_this.cellSize);
+		}
+
+		var myMod = function(m,n) { return ((m%n)+n)%n; };
+
+		sumNeighbors = function(i,j){
+			var sum = 0;
+			for (var k=-1;k<=1;k++){
+				for (var m=-1;m<=1;m++){
+					if (m!==0 || k!==0){
+						sum+= cells[ myMod( (i+k), cellsW) ][ myMod( (j+m), cellsH ) ];
+					}
+				}
+			}
+			return sum;
+		};
+
+		var lifeIt = function(){
+
+            ctx.fillStyle = _this.backgroundColor;
+            ctx.fillRect(0,0,_this.width,_this.height); 
+			ctx.fillStyle=( _this.cellColor );   	           
+			for (var i=0;i<cellsW;i++){
+				for (var j=0;j<cellsH;j++){
+					if (cells[i][j]==1){
+						cells2[i][j] = aliveMapping[ sumNeighbors(i,j) ];
+						ctx.fillRect(i*_this.cellSize,j*_this.cellSize,_this.cellSize,_this.cellSize);
+					} else {
+						cells2[i][j] = deadMapping[ sumNeighbors(i,j) ];
+					}
+				}
+			}
+			for (var i=0;i<cellsW;i++){
+				for (var j=0;j<cellsH;j++){
+					cells[i][j]=cells2[i][j];
+				}
+			}
+		};
+
+		setInterval(function(){
+			lifeIt();
+		}, 100);
+	},
+
+	task: function(dummy) {
+	}
+
+	});
+
+  </script>
+
+</polymer-element>
