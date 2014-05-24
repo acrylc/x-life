@@ -12,6 +12,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <script src="bower_components/platform/platform.js"></script>
   <link rel="import" href="src/x-life.html">
+  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+
   <style>
 		@import url(http://fonts.googleapis.com/css?family=Arvo|Roboto:400,700,900);
   		section, body, html{
@@ -21,6 +23,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   			padding:0;
   			margin:0;
   		}
+		textarea, input { outline: none; }
   		section{
   		}
   		#title{
@@ -72,6 +75,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   			padding:15px;
   			border-radius:2px;
   		}
+  		#try{
+  			line-height:40px;
+  		}
+  		input{
+  			border:0px solid white;
+  			border-radius:0;
+  			border-bottom:2px solid rgb(200,200,200);
+  			color : rgb(200,200,200);
+  			padding: 10px;
+  		}
+  		input:focus{
+			border-bottom:2px solid black;
+  			color : black;
+  		}
 
   </style>
 
@@ -116,13 +133,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 	</section>
 
 	<section> 
-		<x-life width=1500 height=800 backgroundColor = 'rgb(250,250,250)' cellColor = 'rgb(240,240,240)' cellSize=2.5></x-life>
+		<x-life id='demo' width=1500 height=800 backgroundColor = 'rgb(250,250,250)' cellColor = 'rgb(240,240,240)' cellSize=2.5></x-life>
 		<div class='hover' id='usage'>
 			<h2>Give it a shot!</h2>
-			<pre>&ltx-life <br> <div style='margin-left:25px'>backgroundColor = <input type='text'> <br>cellColor =  <input type='text'> <br>cellSize =  <input type='text'></div> <br>&gt <br>&lt/x-life&gt</pre>		
+			<pre id='try'>&ltx-life <div style='margin-left:25px' >backgroundColor = <input type='text' value='rgb(250,250,250)' id='backgroundColor'> <br>cellColor =  <input type='text' value='rgb(240,240,240)' id='cellColor'> <br>cellSize =  <input type='text' value='2.5' id='cellSize'></div>&gt <br>&lt/x-life&gt</pre>		
 		</div>
 
 	</section>
+
+	<script type='text/javascript'>
+
+	$(function(){
+		$('input').blur(function(){
+			console.log(this.value);
+			console.log($('#demo')[0]['cellSize']);
+			if (this.id==='cellColor' || this.id==='cellSize' || this.id==='backgroundColor'){
+				$('#demo')[0][this.id]=this.value;
+			}
+		});
+	})();
+
+	</script>
 
 </body>
 </html>
