@@ -10,13 +10,62 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <html>
 <head>
 
-<!--   <script src="../platform/platform.js"></script>
-  <link rel="import" href="../core-component-page/life.html">
- -->
+  <script src="bower_components/platform/platform.js"></script>
+  <link rel="import" href="src/x-life.html">
+  <style>
+  		section, body, html{
+  			width:100%;
+  			height:100%;
+  			position: relative;
+  			padding:0;
+  			margin:0;
+  		}
+  		section{
+  		}
+  		#title{
+  			position:absolute;
+  			width:400px;
+  			height:120px;
+  			background-color: rgba(254,254,254,0);
+  			text-align:center;
+  			left: 50%;
+  			top:50%;
+  			margin-left:-250px;
+  			margin-top:-155px;
+  			border:7px solid rgb(240,240,240);
+  			padding: 50px 50px 50px 50px;
+  		}
+  		#title h1{
+  			font-size: 70px;
+  			font-family: "Proxima Nova";
+  			letter-spacing: 5px;
+  			line-height:0px;
+  			font-weight:800;
+  			color:white;
+  		}
+  		#title h2{
+  			font-size: 1em;
+  			font-family: "Proxima Nova";
+  			font-weight:500;
+  			line-height:0px;
+  			margin-top:-10px;
+  			color:white;
+  		}
+
+  </style>
+
 </head>
 <body>
 
-  <h1>X-LIFE</h1>
+
+	<section>
+		<x-life width=1500 height=800 backgroundColor='#c0392b' cellColor = '#e74c3c' cellSize=3></x-life>
+		<div id='title'> 
+			<h1> &lt x-life &gt </h1> 
+			<h2> A web component for Conway's Game of Life </h2>
+		</div>
+	</section>
+
 
 </body>
 </html>
