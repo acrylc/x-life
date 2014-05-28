@@ -35,6 +35,12 @@ bower install x-life --save
 
 ### Options
 
-### Methods
+Attribute  | Options        | Default             | Description
+---        | ---         | ---                 | ---
+`width` | *int*   | 500             | Specifies the width of the GOL grid.
+`height` | *int*   | 500            | Specifies the height of the GOL grid.
+`backgroundColor` | *string*   | `white`             | Specifies the background color, in rgb or hex.
+`cellColor` | *string*   | `black`             | Specifies the cell color, in rgb or hex.
+`cellSize`     | *float*    |  2   | Specifies the pixel size of a cell.
 
-### Events
+
