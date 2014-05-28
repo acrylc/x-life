@@ -16,18 +16,28 @@
 
 	  notitle: '',
 
+	  created: function(){
+
+		var _this = this;
+		this.cells=[];
+		this.cells2 = [];
+		this.isTrans = false;
+		this.trans = {
+			curr : '',
+			new : ''
+		};
+	},
 	ready: function() {
 		// var this.cellSize = this.this.cellSize;
-		var cellsW = Math.floor(this.width/this.cellSize),
-			cellsH = Math.floor(this.height/this.cellSize),
-			cells=[],
-			cells2 = [],
-			initNumCells = 4000,
-			_this = this,
+		var _this = this;
+		this.cellsW = Math.floor(this.width/this.cellSize);
+		this.cellsH = Math.floor(this.height/this.cellSize);
+		var	initNumCells = 12000,
 			aliveMapping = [0,0,1,1,0,0,0,0,0],
 			deadMapping = [0,0,0,1,0,0,0,0,0],
 			colorMapping = [this.backgroundColor,this.cellColor];
-
+			////console.log(_this.cellsW);
+			////console.log(_this.cellsH);
 		// initalize empty matrix
 		var initMat = function(mat,w,h){
 			for (var i=0;i<w;i++){
@@ -38,62 +48,71 @@
 			}
 		};
 
-		initMat(cells,cellsW,cellsH);
-		initMat(cells2,cellsW,cellsH);
+		initMat(this.cells,this.cellsW,this.cellsH);
+		initMat(this.cells2,this.cellsW,this.cellsH);
 		canvas = this.$["gol-container"];
-		var ctx=canvas.getContext("2d");
-        ctx.fillStyle = _this.backgroundColor;
-        ctx.fillRect(0,0,_this.width,_this.height);    	           
+		_this.ctx=canvas.getContext("2d");
+        _this.ctx.fillStyle = _this.backgroundColor;
+        _this.ctx.fillRect(0,0,this.width,this.height);    	           
 
 		// Set random initali configuration
-		ctx.fillStyle=( _this.cellColor );
-		console.log(cellsW);
+		_this.ctx.fillStyle=( this.cellColor );
+		//////console.log(_this.cellsW);
 		for (var i=0;i<initNumCells;i++){
-			var x = Math.floor( Math.random()*cellsW );
-			var y =  Math.floor( Math.random()*cellsH );
-			cells[ x ][ y ] = 1;
-			ctx.fillRect(x*_this.cellSize,y*_this.cellSize,_this.cellSize,_this.cellSize);
+			var x = Math.floor( Math.random()*_this.cellsW );
+			var y =  Math.floor( Math.random()*_this.cellsH );
+			this.cells[ x ][ y ] = 1;
+			_this.ctx.fillRect(x*_this.cellSize,y*_this.cellSize,_this.cellSize,_this.cellSize);
 		}
 
 		var myMod = function(m,n) { return ((m%n)+n)%n; };
 
-		sumNeighbors = function(i,j){
+		
+
+		
+			var _this2 = this;
+		(function(){
+			var _this = _this2;
+			sumNeighbors = function(i,j){
+				// if (i===0&&j===0)
 			var sum = 0;
 			for (var k=-1;k<=1;k++){
 				for (var m=-1;m<=1;m++){
 					if (m!==0 || k!==0){
-						sum+= cells[ myMod( (i+k), cellsW) ][ myMod( (j+m), cellsH ) ];
+						sum+= _this.cells[ myMod( (i+k), _this.cellsW) ][ myMod( (j+m), _this.cellsH ) ];
 					}
 				}
 			}
 			return sum;
 		};
+			////console.log(this);
+			var lifeIt = function(){
 
-		var lifeIt = function(){
-
-            ctx.fillStyle = _this.backgroundColor;
-            ctx.fillRect(0,0,_this.width,_this.height); 
-			ctx.fillStyle=( _this.cellColor );   	           
-			for (var i=0;i<cellsW;i++){
-				for (var j=0;j<cellsH;j++){
-					if (cells[i][j]==1){
-						cells2[i][j] = aliveMapping[ sumNeighbors(i,j) ];
-						ctx.fillRect(i*_this.cellSize,j*_this.cellSize,_this.cellSize,_this.cellSize);
+            _this.ctx.fillStyle = _this.backgroundColor;
+            _this.ctx.fillRect(0,0,_this.width,_this.height); 
+			_this.ctx.fillStyle=( _this.cellColor );   	           
+			for (var i=0;i<_this.cellsW;i++){
+				for (var j=0;j<_this.cellsH;j++){
+					if (_this.cells[i][j]==1){
+						_this.cells2[i][j] = aliveMapping[ sumNeighbors(i,j) ];
+						_this.ctx.fillRect(i*_this.cellSize,j*_this.cellSize,_this.cellSize,_this.cellSize);
 					} else {
-						cells2[i][j] = deadMapping[ sumNeighbors(i,j) ];
+						_this.cells2[i][j] = deadMapping[ sumNeighbors(i,j) ];
 					}
 				}
 			}
-			for (var i=0;i<cellsW;i++){
-				for (var j=0;j<cellsH;j++){
-					cells[i][j]=cells2[i][j];
+			for (var i=0;i<_this.cellsW;i++){
+				for (var j=0;j<_this.cellsH;j++){
+					_this.cells[i][j]=_this.cells2[i][j];
 				}
 			}
 		};
-
 		setInterval(function(){
 			lifeIt();
+			//console.log(_this.cells);
+			// ////console.log(_this.cells);
 		}, 100);
+	})();
 	},
 
 	task: function(dummy) {
