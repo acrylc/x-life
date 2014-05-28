@@ -18,19 +18,21 @@
 
 	  created: function(){
 
-var 			_this = this;
-
-			this.cells=[];
-			this.cells2 = [];
-			////console.log(this.width);
-	  },
+		var _this = this;
+		this.cells=[];
+		this.cells2 = [];
+		this.isTrans = false;
+		this.trans = {
+			curr : '',
+			new : ''
+		};
+	},
 	ready: function() {
 		// var this.cellSize = this.this.cellSize;
-var 			_this = this;
-		 this.cellsW = Math.floor(this.width/this.cellSize);
-			this.cellsH = Math.floor(this.height/this.cellSize);
-
-		var	initNumCells = 9000,
+		var _this = this;
+		this.cellsW = Math.floor(this.width/this.cellSize);
+		this.cellsH = Math.floor(this.height/this.cellSize);
+		var	initNumCells = 12000,
 			aliveMapping = [0,0,1,1,0,0,0,0,0],
 			deadMapping = [0,0,0,1,0,0,0,0,0],
 			colorMapping = [this.backgroundColor,this.cellColor];
@@ -109,7 +111,7 @@ var 			_this = this;
 			lifeIt();
 			//console.log(_this.cells);
 			// ////console.log(_this.cells);
-		}, 900);
+		}, 100);
 	})();
 	},
 
