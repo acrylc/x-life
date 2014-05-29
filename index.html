@@ -13,10 +13,12 @@ subject to an additional IP rights grant found at //polymer.github.io/PATENTS
   <script src="bower_components/platform/platform.js"></script>
   <link rel="import" href="src/x-life.html">
   <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script src="/highlight/highlight.pack.js"></script>
+
 
   <style>
 		@import url(//fonts.googleapis.com/css?family=Arvo|Roboto:400,700,900);
-  		section, body, html{
+  		body, html{
   			width:100%;
   			height:100%;
   			position: relative;
@@ -32,18 +34,28 @@ subject to an additional IP rights grant found at //polymer.github.io/PATENTS
       }
 		textarea, input { outline: none; }
   		section{
-  		}
+        width:100%;
+        margin-bottom: 200px;
+      }
       x-life{
         position:fixed;
+        z-index:-1;
+        height:100%;
+      }
+      #main{
+        position: relative;
+        height:100%;
+        margin:0px;
       }
   		#title{
   			position:absolute;
+        /*position:fixed;*/
   			width:400px;
   			height:140px;
   			background-color: rgba(254,254,254,0);
   			text-align:center;
-  			left: 50%;
-  			top:50%;
+  			left: 50vw;
+  			top:50vh;
   			margin-left:-250px;
   			margin-top:-155px;
         border:7px solid rgb(240,240,240);
@@ -76,7 +88,7 @@ subject to an additional IP rights grant found at //polymer.github.io/PATENTS
         color:black;
   		}
   		.hover{
-  			position:absolute;
+  			/*position:absolute;*/
   			width:50%;
   			margin-left: 25%;
   		}
@@ -129,7 +141,7 @@ subject to an additional IP rights grant found at //polymer.github.io/PATENTS
     <!-- <x-life id='demo' width=1500 height=800 backgroundColor='#c02b36' cellColor = '#e74c3c' cellSize=3></x-life> -->
     <x-life id='demo' width=1500 height=800 backgroundColor='rgb(245,245,247)' cellColor = 'rgb(230,230,230)' cellSize=3></x-life>
 
-	<section>
+	<section id='main'>
 		<div id='title'> 
 			<h1> &lt x-life &gt </h1> 
 			<h2> A web component for Conway's Game of Life </h2>
@@ -140,10 +152,10 @@ subject to an additional IP rights grant found at //polymer.github.io/PATENTS
   allowtransparency="true" frameborder="0" scrolling="0" width="62" height="20" ></iframe>
   </h3>
 
+  </section>
+  <section>
 		</div>
-	</section>
 
-	<section>
 		<div class='hover' id='usage'>
 			<h2> Install </h2>
 			<h3> Install the web component using Bower </h3>
@@ -155,13 +167,12 @@ subject to an additional IP rights grant found at //polymer.github.io/PATENTS
 			<h3> 2. Import x-life </h3>
 			<pre> &ltlink rel='import' href="bower_components/x-life/dist/x-life.html"&gt </pre>
 			<h3> 3. Enjoy! </h3>		
-			<pre> &ltx-life&gt &lt/x-life&gt  </pre>
+			<pre> <code > &ltx-life&gt &lt/x-life&gt </code> </pre>
 
 
 		</div>
-	</section>
-
-	<section> 
+    </section>
+    <section>
 		<div class='hover' id='usage'>
 			<h2>Give it a shot!</h2>
 			<pre id='try'>&ltx-life <div style='margin-left:25px' >backgroundColor = <input type='text' value='rgb(250,250,250)' id='backgroundColor'> <br>cellColor =  <input type='text' value='rgb(240,240,240)' id='cellColor'> <br>cellSize =  <input type='text' value='2.5' id='cellSize'></div>&gt <br>&lt/x-life&gt</pre>		
@@ -170,20 +181,21 @@ subject to an additional IP rights grant found at //polymer.github.io/PATENTS
 	</section>
 
   <footer>
-    <div> <span id='by'>made with <img src='images/heart.png' style='height:11px; padding: 0 2px 0 2px'> and <img src='images/coffee.png' style='height:11px; padding: 0 2px 0 2px'>, by</span> <a href='http://www.mayakreidieh.com'> @acrylc </a> </div>
+	<div> <span id='by'>made with <img src='images/heart.png' style='height:11px; padding: 0 2px 0 2px'> and <img src='images/coffee.png' style='height:11px; padding: 0 2px 0 2px'>, by</span> <a href='http://www.mayakreidieh.com'> @acrylc </a> </div>
   </footer>
+<script>hljs.initHighlightingOnLoad();</script>
 
 	<script type='text/javascript'>
 
-		$('#demo')[0].width = $('body').css('width');
-		$('#demo')[0].height = $('body').css('height');
+		$('#demo')[0].width = $('body').width();
+		$('#demo')[0].height = $('body').height();
 
 		window.onresize = function(){
-			$('#demo')[0].width = $('body').css('width');
-			$('#demo')[0].height = $('body').css('height');
+			$('#demo')[0].width = $('body').width();
+			$('#demo')[0].height = $('body').height();
 		};
 
-		$(function(){
+		(function(){
 			$('input').blur(function(){
 				if (this.id==='cellColor' || this.id==='cellSize' || this.id==='backgroundColor'){
 					$('#demo')[0][this.id]=this.value;
