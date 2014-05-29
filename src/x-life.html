@@ -16,8 +16,9 @@
 
 	  notitle: '',
 
-	  created: function(){
-
+	  ready: function(){
+		//console.log('created');
+		//console.log(this.width);
 		var _this = this;
 		this.cells=[];
 		this.cells2 = [];
@@ -26,18 +27,19 @@
 			curr : '',
 			new : ''
 		};
-	},
-	ready: function() {
-		// var this.cellSize = this.this.cellSize;
+
+		// this.cellSize = this.cellSize;
 		var _this = this;
+		//console.log(this.width);
+		//console.log(this.cellSize);
 		this.cellsW = Math.floor(this.width/this.cellSize);
 		this.cellsH = Math.floor(this.height/this.cellSize);
 		var	initNumCells = 12000,
 			aliveMapping = [0,0,1,1,0,0,0,0,0],
 			deadMapping = [0,0,0,1,0,0,0,0,0],
 			colorMapping = [this.backgroundColor,this.cellColor];
-			////console.log(_this.cellsW);
-			////console.log(_this.cellsH);
+			//////console.log(_this.cellsW);
+			//////console.log(_this.cellsH);
 		// initalize empty matrix
 		var initMat = function(mat,w,h){
 			for (var i=0;i<w;i++){
@@ -57,11 +59,13 @@
 
 		// Set random initali configuration
 		_this.ctx.fillStyle=( this.cellColor );
-		//////console.log(_this.cellsW);
+		////////console.log(_this.cellsW);
+		//console.log(_this.cellsW);
 		for (var i=0;i<initNumCells;i++){
 			var x = Math.floor( Math.random()*_this.cellsW );
 			var y =  Math.floor( Math.random()*_this.cellsH );
-			this.cells[ x ][ y ] = 1;
+			_this.cells[ x ][ y ] = 1;
+
 			_this.ctx.fillRect(x*_this.cellSize,y*_this.cellSize,_this.cellSize,_this.cellSize);
 		}
 
@@ -85,7 +89,7 @@
 			}
 			return sum;
 		};
-			////console.log(this);
+			//////console.log(this);
 			var lifeIt = function(){
 
             _this.ctx.fillStyle = _this.backgroundColor;
@@ -107,15 +111,42 @@
 				}
 			}
 		};
-		setInterval(function(){
+		if (this.id!=undefined){
+			window.clearInterval(_this.id);
+		}
+		this.id = setInterval(function(){
 			lifeIt();
-			//console.log(_this.cells);
-			// ////console.log(_this.cells);
+			////console.log(_this.cells);
+			// //////console.log(_this.cells);
 		}, 100);
 	})();
+
+	},
+
+
+	created: function() {
+		// this.initCells();
 	},
 
 	task: function(dummy) {
+	},
+
+	cellSizeChanged: function(){
+		this.ready();
+	},
+
+	widthChanged: function(){
+		this.ready();
+	},
+
+	heightChanged : function(){
+		this.ready();
+	},
+	cellColorChanged: function(){
+		this.ready();
+	},
+	backgroundColorChanged: function(){
+		this.read();
 	}
 
 	});
