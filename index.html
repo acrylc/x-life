@@ -15,6 +15,7 @@ subject to an additional IP rights grant found at //polymer.github.io/PATENTS
   <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
   <script src="/highlight/highlight.pack.js"></script>
 
+  <link href="/prism.css" rel="stylesheet" />
 
   <style>
 		@import url(//fonts.googleapis.com/css?family=Arvo|Roboto:400,700,900);
@@ -96,12 +97,15 @@ subject to an additional IP rights grant found at //polymer.github.io/PATENTS
   			top:75px;
   		}
   		pre{
-  			background-color: rgb(253,253,253);
-  			padding:15px;
-  			border-radius:2px;
+  			background-color: rgb(253,253,253) !important;
+        font-size: 0.8em !important;
+  			/*padding:15px;
+  			border-radius:2px;*/
   		}
   		#try{
   			line-height:40px;
+        font-size:1.1em !important;
+        padding:10px;
   		}
   		input{
   			border:0px solid white;
@@ -159,15 +163,15 @@ subject to an additional IP rights grant found at //polymer.github.io/PATENTS
 		<div class='hover' id='usage'>
 			<h2> Install </h2>
 			<h3> Install the web component using Bower </h3>
-			<pre>$ bower install x-life</pre>		
+			<pre> <code class='language-bash'>$ bower install x-life </code></pre>		
 			<br>
 			<h2> Usage </h2>
 			<h3> 1. Import polymer </h3>
-			<pre> &ltscript src="bower_components/platform/platform.js"&gt &lt/script&gt </pre>		
+			<pre> <code class='language-markup'> &ltscript src="bower_components/platform/platform.js"&gt &lt/script&gt </code></pre>		
 			<h3> 2. Import x-life </h3>
-			<pre> &ltlink rel='import' href="bower_components/x-life/dist/x-life.html"&gt </pre>
+			<pre><code class='language-markup'>  &ltlink rel='import' href="bower_components/x-life/dist/x-life.html"&gt  </code> </pre>
 			<h3> 3. Enjoy! </h3>		
-			<pre> <code > &ltx-life&gt &lt/x-life&gt </code> </pre>
+			<pre> <code class='language-markup' > &ltx-life&gt &lt/x-life&gt </code> </pre>
 
 
 		</div>
@@ -175,7 +179,7 @@ subject to an additional IP rights grant found at //polymer.github.io/PATENTS
     <section>
 		<div class='hover' id='usage'>
 			<h2>Give it a shot!</h2>
-			<pre id='try'>&ltx-life <div style='margin-left:25px' >backgroundColor = <input type='text' value='rgb(250,250,250)' id='backgroundColor'> <br>cellColor =  <input type='text' value='rgb(240,240,240)' id='cellColor'> <br>cellSize =  <input type='text' value='2.5' id='cellSize'></div>&gt <br>&lt/x-life&gt</pre>		
+			<pre id='try'>  &ltx-life <div style='margin-left:25px' >backgroundColor = <input type='text' value='rgb(250,250,250)' id='backgroundColor'> <br>cellColor =  <input type='text' value='rgb(240,240,240)' id='cellColor'> <br>cellSize =  <input type='text' value='2.5' id='cellSize'></div>&gt <br>&lt/x-life&gt  </pre>		
 		</div>
 
 	</section>
@@ -204,6 +208,7 @@ subject to an additional IP rights grant found at //polymer.github.io/PATENTS
 		})();
 
 	</script>
+  <script src="/prism.js"></script>
 
 </body>
 </html>
