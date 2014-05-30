@@ -19,7 +19,7 @@ module.exports = function(grunt) {
             src: [
                 'bower_components/**/*',
                 '!bower_components/x-life/**/*',
-                'demo/*', 'src/*', 'index.html', 'images/*'
+                'demo/*', 'src/*', 'index.html', 'images/*', 'prism.js', 'prism.css', 'highlight/*'
             ]
         },
         'replace': {
